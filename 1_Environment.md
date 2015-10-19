@@ -14,7 +14,7 @@ Linux is the OS of choice for running the programs in the tutorial. Further, it 
 
 `sudo apt-get install build-essential`
 
-This command will install the `gcc` compiler and its dependencies.
+This command will install the `gcc` compiler and its dependencies. Examples in this tutorial have been compiled with `gcc`.
 
 ### Misc Tools
 
@@ -30,6 +30,10 @@ Larger projects, tend to deploy additional tools such as:
 * a static analyzer - to detect common mistakes and potential use of language features in an unsafe way. Eg: [cppcheck](http://cppcheck.sourceforge.net/) and [clang-analyzer](http://clang-analyzer.llvm.org/)
 
 Other tools for collaboration, code-review and package and release management etc are also often used on larger project, but these are language agnostic and often driven by the software development methodology in use. Such tools are out of scope of this tutorial.
+
+### Note on Online Compilers
+
+There are a plenty of websites that allow users to compile and run C++ programs via thier web-browsers. Some of the more popular ones are [ideone](https://ideone.com/) and [codepad](http://codepad.org/). For demonstrating various sample programs used in this tutorial, the online compiler at [CPP Shell](http://cpp.sh/) will be used. This website allows users to enter input for thier programs via thier browsers. It uses GCC 4.9.2 as the compiler compiler.
 
 ### Note on IDEs
 
