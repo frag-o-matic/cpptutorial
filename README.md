@@ -39,7 +39,7 @@
 8 The `C` in `C++`
   * Low-level and Machine dependent stuff
   * Bitwise Operator and Hacks
-  * `union`s and thier (ab)uses 
+  * `union`s and their (ab)uses 
   * Arrays and Pointers
     - The Lesser `vector`s
     - Raw Pointers and Memory Management
