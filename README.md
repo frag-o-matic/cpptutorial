@@ -1,61 +1,8 @@
-### Index
+### Intro
+This is an experimental course for introducing modern C++ based on a book/tutorial that I'm working. The course/tutorial is aimed at people with some exposure to programming concepts. Knowledege of C is not required to start with this tutorial. However, absolute beginners may face problems following along.
 
-0 [Introduction](0_Introduction.md)
+The course intends to emphasize and introduce modern C++ practices and idioms over the traditional method of teaching C++, which involved introducing basic concepts of C first and building on top of this foundation to introduce C++.
 
-1 [Environment](1_Environment.md)
+### Table of Contents
 
-2 [Hello, World!](2_Hello_World.md)
-
-3 A Closer Look at Hello, World!
-
-4 Abstraction, Blackboxes and Magic
-
-5 Basic C++
-  * Syntax, Keywords and other Minutiae
-  * Basic Types, Variables and `auto`
-  * Operators, Logic and Maths
-  * Loops and Jumps
-  * Functions and Lambdas
-    - Pass by Reference
-    - Capture in Lambdas
-  * Introduction to the Standard Library
-  - Containers: `vector`s and `string`s
-  - Algorithms: `count` and `count_if`
-  - `for_each` and `transform` : The real power of Lambdas
-  
-6 Intro to Object Oriented Programming
-  * What is Object Oriented Programming
-  * User-defined types, Encapsulation and `class`es
-  * Inheritance and code-level reuse
-  * Polymorphism and Interfaces
-    - References for facilitating Polymorphism
-
-7 Misc Topics in C++
-  * Enumnerations and `enum class`
-  * Templates
-  * Streams and Files
-  * Exceptions
-
-8 The `C` in `C++`
-  * Low-level and Machine dependent stuff
-  * Bitwise Operator and Hacks
-  * `union`s and thier (ab)uses 
-  * Arrays and Pointers
-    - The Lesser `vector`s
-    - Raw Pointers and Memory Management
-  * `char*` and Friends
-
-9 Pointers and Memory Management in C++
-  * RAII and Cleanup
-  * Smart Pointers : `unique_ptr` and `shared_ptr`
-  * Ownership
- 
-10 Closer Look at the STL
-  * Useful Standard Containers
-    - `list`s and `deque`s
-    - `map`s and `multimap`s
-  * Useful Standard Algorithms
-    - `find`ing and `sort`ing
-    - `count`ing, `swap`ping, `copy`ing
-
---- WIP : Work in Progress ---
+Available [here](Index.md)
