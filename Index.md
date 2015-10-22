@@ -1,5 +1,7 @@
 ### Index
 
+#### A Taste of C++
+
 0 [Introduction](contents/0_Introduction.md)
 
 1 [Environment](contents/1_Environment.md)
@@ -10,52 +12,114 @@
 
 4 Abstraction, Blackboxes and Magic
 
-5 Basic C++
+#### Basic C++
+
+5 C++ Language Features
   * Syntax, Keywords and other Minutiae
-  * Basic Types, Variables and `auto`
-  * Operators, Logic and Maths
-  * Loops and Jumps
+  * Types and Variables
+   - Built-in Types: Integrals, Floating-points, Boolean and `void`
+   - Type-deduction and `auto`
+   - `const` variables
+  * Operators
+	- Arithmetic and Assignment
+	- Logical and Comparison
+	- Increment and Decrement
+	- Precedence and Associativity
+  * Loops
+	- `for`, `while` and `do-while`
   * Functions and Lambdas
-    - Pass by Reference
-    - Capture in Lambdas
+	- Motivation and Usage
+	- Pass by Reference and `const` Parameters
+	- Recursion
+	- Function Overloading
+ * User Defined Types
+   - Encapsulation and `class`es
+   - Access specifiers `public` & `private`
+   - `static`, `const` and `mutable` members
+   - Member Functions and the `const` suffix
   * Introduction to the Standard Library
-  - Containers: `vector`s and `string`s
-  - Algorithms: `count` and `count_if`
-  - `for_each` and `transform` : The real power of Lambdas
-  
-6 Intro to Object Oriented Programming
-  * What is Object Oriented Programming
-  * User-defined types, Encapsulation and `class`es
+  - Containers
+	- `vector`s
+	- `string` and `stringstream`
+	- Range-based `for` and Iterators
+  - Algorithms
+	- `find` and `count`
+	- `find_if`, `for_each` and `transform`
+	- Introduction to Lambdas and inline Predicate Functions
+  * Exceptions
+	- Handling unexpected conditions
+		- `throw`ing exceptions
+		- `catch` blocks and cleanup
+		- Where is `finally`?
+	- `std::exception`
+	- Exception Guarantees
+
+#### Object Oriented Programming features of C++
+
+6 OOP features in C++
   * Inheritance and code-level reuse
-  * Polymorphism and Interfaces
-    - References for facilitating Polymorphism
+	- `protected` access specifier
+	- Function Hiding
+	- Multiple Inheritance
+  * Polymorphism
+	- Operators for User-defined Types
+	- Function Overriding instead of Function Hiding
+	- References as facilitators of Polymorphism
+	- Achieveing Function Overriding with `virtual` and `override`
+	- Preventing Function Overriding with `final`
+	- Interfaces in C++ via Pure `virtual` Functions
+
+#### The Rest of C++
 
 7 Misc Topics in C++
-  * Enumnerations and `enum class`
+  * Enumerations and `enum class`
+  * Name collision and `namespace`s
   * Templates
-  * Streams and Files
-  * Exceptions
+  * Streams
+  * Files
 
 8 The `C` in `C++`
+  * Overview of the Compilation Process
+	- Stages of Compilation
+	- Linkage & Visibility
   * Low-level and Machine dependent stuff
+	- `<cstdint>` and integrals with fixed sizes
+	- `volatile`, `static`-linkage and `extern`
   * Bitwise Operator and Hacks
   * `union`s and thier (ab)uses 
   * Arrays and Pointers
-    - The Lesser `vector`s
-    - Raw Pointers and Memory Management
-  * `char*` and Friends
+	- Arrays and `std::array` : The Lesser `vector`s
+	- Pointers and the Heap 
+	- Memory Management in C++ : Introducing `new` and `delete`
 
 9 Pointers and Memory Management in C++
-  * RAII and Cleanup
-  * Smart Pointers : `unique_ptr` and `shared_ptr`
-  * Ownership
+  * Raw Pointers in C++ and RAII
+  * Smart Pointers and Ownership: `unique_ptr` and `shared_ptr`
+  * The `this` Pointer
+  * How `virtual` really Works
  
-10 Closer Look at the STL
+10 Another Look at the STL
   * Useful Standard Containers
-    - `list`s and `deque`s
-    - `map`s and `multimap`s
+	- `list`s and `deque`s
+	- `map`s and `set`s
   * Useful Standard Algorithms
-    - `find`ing and `sort`ing
-    - `count`ing, `swap`ping, `copy`ing
+	- `swap`ping and `copy`ing
+	- `fill`, `generate` and `rotate`
 
---- WIP : Work in Progress ---
+#### Real-world C++
+
+11 Existing code & Legacy C++
+  * Verbose Loops
+  * Repeated `virtual`s and missing `override`s
+  * Raw `new` and `delete`
+  * `auto_ptr`s and Function Objects
+  
+12 Mixing with `C` code
+  * `char*` and Friends
+  * C-style I/O: `printf` and `scanf`
+  * Name-mangling and `extern C`
+  * Getting `vector`s and `string`s to play nice with C code
+  
+##### Notes
+* This TOC is fairly complete with respect to the topics to be covered. However, this is still a work in progress. Expect changes in ordering/sequencing and addition of new topics.
+* Suggestions, Corrections and Feeback to frag_o_matic at gmx dot com
