@@ -8,7 +8,7 @@
 
 2 [Hello, World!](contents/2_Hello_World.md)
 
-3 A Closer Look at Hello, World!
+3 [A Closer Look at Hello, World!](contents/3_Closer_Look.md)
 
 4 Abstraction, Blackboxes and Magic
 
