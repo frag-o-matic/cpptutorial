@@ -6,3 +6,6 @@ The course intends to emphasize and introduce modern C++ practices and idioms ov
 ### Table of Contents
 
 Available [here](Index.md)
+
+##### Contact
+Please feel free to reach out with suggestions, comments and corrections via github or [email](mailto:frag_o_matic@gmx.com)
