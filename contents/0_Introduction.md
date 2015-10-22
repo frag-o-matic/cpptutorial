@@ -22,7 +22,4 @@ Modern C++, that is to say, C++ as standardized in [C++11](https://en.wikipedia.
 
 Modern C++ is not just about new keywords and language features, although the new features form a significant part of the big-picture, it is the shift in the way code is written that is of paramount importance. Modern C++ is not written as a just "better C". It has its own distinct [idioms](https://channel9.msdn.com/Events/BUILD/BUILD2011/TOOL-835T)  and [style](https://github.com/isocpp/CppCoreGuidelines), following which makes is easy to write safe code, without taking any performance hits, as compared to "old style" C++ code.
 
-While on this topic, it is important to know that "modern" C++ still maintains backward compatibility with "older" C++ code.
-
-##### Contact
-Please feel free to reach out with suggestions, comments and corrections via github or [email](mailto:frag_o_matic@gmx.com)
+While on this topic, it is important to know that "modern" C++ still maintains backward compatibility with "older" or "legacy" C++ code out there.
