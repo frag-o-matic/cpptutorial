@@ -1,7 +1,7 @@
 ### Intro
-This is an experimental course for introducing modern C++ based on a book/tutorial that I'm working. The course/tutorial is aimed at people with some exposure to programming concepts. Knowledege of C is not required to start with this tutorial. However, absolute beginners may face problems following along.
+This is an experimental tutorial/course/book/whatever for introducing (and emphasizing) modern C++ language, practices and idioms rather than following the traditional C-first style introduction to C++. The trigger for creating this tutorial was this [talk](https://www.youtube.com/watch?v=YnWhqhNdYyk) by Kate Gregory. 
 
-The course intends to emphasize and introduce modern C++ practices and idioms over the traditional method of teaching C++, which involved introducing basic concepts of C first and building on top of this foundation to introduce C++.
+The tutorial itself is aimed at people with some exposure to programming, possibly using other languages, however knowledege of C is neither assumed nor required. That said, absolute beginners and first time programming learners may face problems following along. Basic proficiency with Linux (or another UNIX-like) will be helpful.
 
 ### Table of Contents
 
