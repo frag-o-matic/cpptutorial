@@ -119,7 +119,3 @@
   * C-style I/O: `printf` and `scanf`
   * Name-mangling and `extern C`
   * Getting `vector`s and `string`s to play nice with C code
-  
-##### Notes
-* This TOC is fairly complete with respect to the topics to be covered. However, this is still a work in progress. Expect changes in ordering/sequencing and addition of new topics.
-* Suggestions, Corrections and Feeback to frag_o_matic at gmx dot com
