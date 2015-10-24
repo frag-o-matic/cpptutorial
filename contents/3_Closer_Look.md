@@ -82,9 +82,111 @@ The two new options here are:
 
 #### Launching the Debugger
 
-WIP 
+After the *source file* has been recompiled, the debugging process can being. First, the debugger is launched via the command:
+  ```
+  gdb a.out
+  ```
+After printing a bunch of information, the following prompt is displayed indicating the debugger is ready to accept commands from the user:
+  ```
+  (gdb)
+  ```
+We can now instruct the debugger to perform various actions, for example, display additional information about the binary being debugged via the command `info file`, which will produce an output similar to (output has been truncated for readability):
+  ```
+  (gdb) info file
+  Symbols from "/home/test/a.out".
+    Local exec file:
+	    `/home/test/a.out', file type elf32-i386.
+	    Entry point: 0x8048600	0x08048154 - 0x08048167 is .interp
+  ```
+To execute the program, the command `run` (conveniently shortened to `r`) is used. Typing `run` or `r` at the `gdb` prompt executes the program normally, but within the controlled environment of the debugger. This results in output similar to:
+  ```
+  (gdb) r
+  Starting program: /home/test/a.out 
+  Hello, World!
+  
+  Program exited normally.
+  (gdb)
+  ```
+As can be seen, the program ran as usually, printing the message `Hello, World!`. Another useful feature is that `gdb` allows for printing a few (by default `10` lines) of the *source file* from within the debugger itself via the `list` command (conveniently shortened to `l`):
+  ```
+  (gdb) l
+  1	#include <iostream>
+  2	// Hello, World! Program
+  3	// File: hello.cpp
+  4	// Compile With: g++ --std=c++11 hello.cpp -o a.out
+  5	int main()
+  6	{
+  7		std::cout<<"Hello, World!"<<std::endl;
+  8		return 0;
+  9	}
+  (gdb) 
+  ```
+Since the `Hello, World!` program is quite short, the entire listing is printed. The `list` command can be instructed to print a variety of other useful information from within the debugger.
 
-#### Basics of Debugging
+To exit the debugger and return to the command-prompt, use the `quit` command (conveniently shortened to `q`).
+  ```
+    (gdb) q
+    test@test-desktop:~$ 
+  ```
+#### Debugging using `gdb`
 
-WIP
+While running a program to completion within the debugger is useful, the real power of a debugger lies in the fact that execution of the program being debugged can be controlled. `gdb` has two basic methods to control execution:
 
+* *breakpoints*: are a feature that allow suspending a running program when it tries to execute a particular line of code. Each such position is called a `breakpoint` (as they break the flow of execution). Program execution is suspended just before the breakpoint is "hit" (i.e the line in question is due to run). This is helpful to quickly reach a problem area and stop short of it. In `gdb` breakpoints are specified using the `break` command (conveniently shortened to `b`).
+
+* *single-stepping*: is a feature that allows running the program one line at a time. Combined with breakpoints, this is a valuable tool as it allows taking a closer look at the program state after each instruction is processed. There are variations of this feature such as which we be introduced later. In `gdb` *single-stepping* is achieved via the `step` (conveniently shortened to `s`) and `next` (conveniently shortened to `n`) commands.
+
+Another cool feature of a debugger is that it allows the programmer to inspect various parts of a program as it is running. `gdb` exposes this feature via the various `info` commands. These commands will be dealt with in full in later chapters.
+
+#### A Simple Debug Session
+
+Now that the minutiae are out of the way, we can get a taste of debugging with `gdb`. Here's a sample debug session:
+  ```
+    test@test-desktop:~$ gdb a.out 
+    GNU gdb 6.8-debian
+    Copyright (C) 2008 Free Software Foundation, Inc.
+    License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+    This is free software: you are free to change and redistribute it.
+    There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+    and "show warranty" for details.
+    This GDB was configured as "i486-linux-gnu"...
+    (gdb) l
+    1	#include <iostream>
+    2	// Hello, World! Program
+    3	// File: hello.cpp
+    4	// Compile With: g++ --std=c++11 hello.cpp -o a.out
+    5	int main()
+    6	{
+    7		std::cout<<"Hello, World!"<<std::endl;
+    8		return 0;
+    9	}
+    (gdb) b hello.cpp:7
+    Breakpoint 1 at 0x80486c5: file hello.cpp, line 7.
+    (gdb) r
+    Starting program: /home/test/a.out 
+    
+    Breakpoint 1, main () at hello.cpp:7
+    7		std::cout<<"Hello, World!"<<std::endl;
+    (gdb) s
+    Hello, World!
+    8		return 0;
+    (gdb) s
+    9	}
+    (gdb) s
+    0xb7d5f775 in __libc_start_main () from /lib/tls/i686/cmov/libc.so.6
+    (gdb) s
+    Single stepping until exit from function __libc_start_main, 
+    which has no line number information.
+    
+    Program exited normally.
+    (gdb) q
+    test@test-desktop:~$ 
+  ```
+which can be summarized as follows:
+* First, we start by launching the debugger with `gdb a.out` and get a program listing via `l` (list) command
+* Using the program listing as reference, we set a *breakpoint* at line `7`, just before the words `Hello, World!` are printed to screen
+* We run the program as usual, but the execution is suspended when the breakpoint at line `7` is hit. Subsequently, we instruct the debugger to execute the line of source code via the `s` (single-step) command, producing the output `Hello, World!` and advancing to the next line of source code
+* We then repeat this process, following along the execution of the rest of the source code via the `s` (single-step) command until program execution reaches the end of `main()` and the program terminates. 
+* Following the termination of the program, we exit the debugger using `q` (quit)
+
+If so desired, we could run the program multiple times after it has finished running once. The breakpoint set at line 7 will remain in force till we exit the debugger. Also, issuing a `r` (run command) instead of `s` (single-step command) at line 7 will run the progam to completion, as long as there are no more breakpoints set.
