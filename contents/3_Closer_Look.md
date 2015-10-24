@@ -59,7 +59,7 @@ In C++ *whitspace* (spaces, tabs and newlines) is irrelevant by the compiler (wh
 
 ##### Note on Compiler Errors
 
-While compiling the `Hello, World!` example, there might be errors reported by the compiler, `gcc`. Please take a look at [this](contents/misc_gcc_errors.md) note for additional info on some common errors and how to go about understanding and fixing them.
+While compiling the `Hello, World!` example, there might be errors reported by the compiler, `gcc`. Please take a look at [this](misc_gcc_errors.md) note for additional info on some common errors and how to go about understanding and fixing them.
 
 ### Debugging the Binary
 
