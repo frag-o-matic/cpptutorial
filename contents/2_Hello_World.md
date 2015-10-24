@@ -38,10 +38,8 @@ The program listing for `Hello World!` is just that: some words and punctuation 
 [Here](http://cpp.sh/2vm5q) is "Hello, World!" program running online in CPP Shell.
 
 #### Dealing with Errors
-If there are errors during compilation, see if you can fix the problem by following these steps:
-* Take a close look at the error printed out by the compiler. The error will usually have a line number indicating the location of trouble
-* Double check the source file for any typos, stray punctuation or characters. Whitespace (spaces and tabs) don't really matter in C++
- 
+If there are errors during compilation, please take a look at [this](misc_gcc_errors.md) note for additional info on some common errors and how to go about understanding and fixing them.
+
 #### Making sense of it all
 This is just the beginning of things and naturally there will be stuff that is not very clear. The whole thing may even look hopelessly complicated, it is not. In the next chapter, we'll take a closer look at what makes up this toy program and how it works.
 
