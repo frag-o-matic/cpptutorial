@@ -1,9 +1,9 @@
-## A Close Look at `Hello, World!`
+## A Closer Look at `Hello, World!`
 
 Now that we have a program written, compiled and running, its time take a look at its innards and learn what makes the whole thing work. We'll examine the program in two steps to get a better understanding of what is going on:
 
-* *Understanding the Source* : Taking a closer look at the various pieces that make up a C++ **source file** will yeild a deeper insight of the structure of C++ programs and help surface the meaning behind some of the **statements** ~~typed-in~~ `copy-paste`d earlier.
-* *Debugging the Binary* : Examining the running program is a good first step in introducing debuggers and the debugging process, which is an indispensible tool for diagnosing programs that compile fine but don't quite work the way they're supposed to.
+* **Understanding the Source** : Taking a closer look at the various pieces that make up a C++ *source file* will yeild a deeper insight of the structure of C++ programs and help surface the meaning behind some of the *statements* ~~typed-in~~ `copy-paste`d earlier.
+* **Debugging the Binary** : Examining the running program is a good first step in introducing debuggers and the debugging process, which is an indispensible tool for diagnosing programs that compile fine but don't quite work the way they're supposed to.
 
 ### Understanding the Source
 
@@ -35,7 +35,7 @@ The change in commenting style makes no difference whatsoever to compiler (remem
 
 * The `#include` statement, immediately after the comments, is a directive for "pulling-in" code from other files. The filename to be "pulled-in" is enclosed between the two angle brackets (`<` and `>`) just after the `#include` directive. As the source file `hello.cpp` containing the example is processed, code from the file `iostream` gets "pulled-in" and pasted into `hello.cpp`. The compiler then processes code from both `iostream` and `hello.cpp` as if they were a single file. This method of pulling stuff in makes it easy to re-use pre-existing code saving both time and effort required for accomplishing common tasks. In the `Hello, World!` example, the `#include <iostream>` is a directive that "pulls-in" code from `iostream` which contains code allowing the programmer to display text on screen and read input from the keyboard.
 
-* The most important part of the **source file** is the bit following the `#include` statment. The line in question:
+* The most important part of the *source file* is the bit following the `#include` statment. The line in question:
     ```cpp
     int main()
     ```
@@ -52,13 +52,13 @@ Although not strictly necessary, having a `return` statement at the end of `main
 
 #### Notes about Miscellaneous syntax elements
 
-* The `;` (semicolons) at the end of each **statement** in `main()` serve to mark the end of one complete **statement**. Basically they're a Programmer's way of saying "I'm done with this bit, let's move on to the next" to the compiler. Missing out semicolons will produce errors similar to
+* The `;` (semicolons) at the end of each *statement* in `main()` serve to mark the end of one complete *statement*. Basically they're a Programmer's way of saying "I'm done with this bit, let's move on to the next" to the compiler. Missing out semicolons will produce errors similar to
     ```
      In function 'int test()': 8:3: error: expected ';' before 'return'
     ```
 * The `{` and `}` (curly-braces) specify the extent of statements that make up `main()`. Generally, these are used to group `statement`s into a `block`. A `block` is a just a bunch of instructions that are treated as a single unit. The `block` is then treated as the extent for various other language constructs (such as conditionals, loops and functions). 
 
-The semicolons and curly-braces are necessary because **whitspace** (spaces, tabs and newlines) is ignored by the compiler and there is no easy way to infer the end of a **statement** or identify the beginning and end of a group of **statement**s without these markers.
+The semicolons and curly-braces are necessary because *whitspace* (spaces, tabs and newlines) is ignored by the compiler and there is no easy way to infer the end of a *statement* or identify the beginning and end of a group of **statement**s without these markers.
 
 ### Debugging the Binary
 WIP
