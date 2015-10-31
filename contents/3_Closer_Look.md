@@ -67,128 +67,98 @@ While compiling the `Hello, World!` example, there might be errors reported by t
 
 *Debugging*, a task that goes hand-in-hand with programming, basically involves running a program binary in a controlled manner with the aim of resolving defects. A *defect* (aka *bug*) is an oddity in program behaviour and occurs when the program does not perform its intended task or behaves unexpected. The controlled environment for debugging can be created with the aid of a special program called a *debugger*. See [here](https://en.wikipedia.org/wiki/Debugging) for a more formal and thorough treatment of *debugging* and [here](https://en.wikipedia.org/wiki/Debugger) for details on debuggers.
 
-For the purposes of this tutorial, the *debugging* process will be used as a tool to aid understanding of what is really going on with the sample programs and as brief introduction to the things to try when needs to be done when a C++ program does not perform as expected. The [GNU Debugger](https://www.gnu.org/software/gdb/) aka `gdb` will be used to demonstrate the debugging process.
+In a nutshell, the power and utility of debuggers stems from the fact that they:
+
+* can control the speed of execution of the program being debugged, which allows programmers can pause code exection and jump over parts of code they're not interested. Since computers are so fast, it is near impossible to identify the exact location and cause of *defects* in a program running at its usual speed (the "problem code" will already have executed by the time we realize what is going on). Jumping over parts no related to the problem at hand and pausing at places where the bug may possibly be hiding makes the whole process quicker. Thus, being able to control the speed and length of program execution is real handy when bug-hunting.
+
+* allow looking at the state of the program being debugged, as it is running, which allows programmers to identify when exactly things being to go wrong. Looking at parts of a program, the path of execution that the program takes and the results of calculations it performs are all clues that can help zero-in on the cause of a *defect*. The debugger allows the programmer to take a good look at all these (and more).
+
+Normal program execution doesn't afford this kind of control, although crude work-arounds can be applied to afford some level of control. These (and many, many other advanced) features in debuggers make them a highly indispensible tool.
+
+While the main motivation for *debugging* is to identify (and fix) *defects*, it is also useful for observing how program execution really occurs. This information is really handy in many different situations, such as for identifying areas of improvement.
+
+For the purposes of this tutorial, the [GNU Debugger](https://www.gnu.org/software/gdb/) aka `gdb` will be used for *debugging* the sample code, starting with the "Hello, World!" sample from the previous chapter.
 
 #### Changes to Facilitate Debugging
 
-Before we can begin debugging the "Hello, World!" binary `a.out`, a recompilation is necessary. This time around, we'll instruct the compiler, to add additional information for facilitating debugging. The new command for compiling with debug information is as follows: 
+Before we can begin debugging "Hello, World!" we'll need to pass additional command-line options to the compiler, so that additional information for facilitating debugging is added to the generated binary:
   ```
   g++ --std=c++11 -ggdb -O0 hello.cpp -o a.out`
   ```
-The two new options here are:
-* `-ggdb`, which instructs the compiler to generate and include detailed information for debugging. Normally, debug information is kept to a minimum in order to reduce the size of generated `a.out` file.
-* `-O0` which instructs the compiler not to perform any optimizations (this flag is not really necessary, since it is usually the default). Optimizations are clever tricks that the compiler pulls behind the scenes to make it run faster. 
+A brief description of what these two options do is given below:
+* `-ggdb` instructs the compiler to generate and embed detailed information for debugging within the generated binary. Normally, debug information is kept to a minimum in order to reduce the size of generated `a.out` file.
+* `-O0` which instructs the compiler not to perform any optimizations. Optimizations are clever little tricks that the compiler pulls behind the scenes to make your code run faster (this flag is not really necessary, since it is usually the default).
   <sup>**PS:** Just to avoid any confusion, this option is the capital alphabet `O` followed by the numeral zero `0`.</sup>
 
-#### Launching the Debugger
+#### A Taste of Debugging
 
-After the *source file* has been recompiled, the debugging process can being. First, the debugger is launched via the command:
+After the *source file* has been re-compiled with the above options, we're ready to go. The debugger can be invoked via the command line by pass the name of the binary to be debugged as a parameter:
   ```
-  gdb a.out
+  test@test-desktop:~$ gdb a.out
   ```
-After printing a bunch of information, the following prompt is displayed indicating the debugger is ready to accept commands from the user:
+After printing a bunch of information, the following prompt is displayed:
   ```
   (gdb)
   ```
-We can now instruct the debugger to perform various actions, for example, display additional information about the binary being debugged via the command `info file`, which will produce an output similar to (output has been truncated for readability):
+Which indicates that the debugger is ready to accept commands, which are simple English words like `start`, `step` and `continue`, from the programmer. These commands instruct the debugger to perform various actions and afford a lot of control over the binary being debugged. For example, typing the command `start` at the prompt will begin running the binary being debugged:
+
   ```
-  (gdb) info file
-  Symbols from "/home/test/a.out".
-    Local exec file:
-	    `/home/test/a.out', file type elf32-i386.
-	    Entry point: 0x8048600	0x08048154 - 0x08048167 is .interp
-  ```
-To execute the program, the command `run` (conveniently shortened to `r`) is used. Typing `run` or `r` at the `gdb` prompt executes the program normally, but within the controlled environment of the debugger. This results in output similar to:
-  ```
-  (gdb) r
+  (gdb) start
+  Breakpoint 1 at 0x80486c5: file hello.cpp, line 7.
   Starting program: /home/test/a.out 
-  Hello, World!
-  
-  Program exited normally.
-  (gdb)
-  ```
-As can be seen, the program ran as usually, printing the message `Hello, World!`. Another useful feature is that `gdb` allows for printing a few (by default `10` lines) of the *source file* from within the debugger itself via the `list` command (conveniently shortened to `l`):
-  ```
-  (gdb) l
-  1	#include <iostream>
-  2	// Hello, World! Program
-  3	// File: hello.cpp
-  4	// Compile With: g++ --std=c++11 hello.cpp -o a.out
-  5	int main()
-  6	{
-  7		std::cout<<"Hello, World!"<<std::endl;
-  8		return 0;
-  9	}
+  main () at hello.cpp:7
+   
   (gdb) 
   ```
-Since the `Hello, World!` program is quite short, the entire listing is printed. The `list` command can be instructed to print a variety of other useful information from within the debugger.
+However, instead of printing `Hello, World!` and terminating, as it normally would, we see that the debugger has begun executing the program, but stopped just after entering `main()`. This feature of the debugger which allows the programmer to pause the program at a specific place, such as just after entering `main()`, is called a *breakpoint*. True to their name, *breakpoint*s are positions in code (usually identified by a line number: `file hello.cpp, line 7`, in the listing) where the debugger "breaks" (or pauses) program execution and allows the programmer to run more commands (presumably to poke around and look at the state of the running program). We'll see later how to specify and use *breakpoint*s for debugging at a later time. `start` essentially is short hand for "add *breakpoint* in `main()`".
 
-To exit the debugger and return to the command-prompt, use the `quit` command (conveniently shortened to `q`).
-  ```
-    (gdb) q
-    test@test-desktop:~$ 
-  ```
-#### Debugging using `gdb`
+After `start`ing debugging (or pausing at a different `breakpoint`) we can use the command `step` to have the debugger execute one source-line and stop right after that:
 
-While running a program to completion within the debugger is useful, the real power of a debugger lies in the fact that execution of the program being debugged can be controlled. `gdb` has two basic methods to control execution:
+```
+(gdb) step
+Hello, World!
+8		return 0;
+```
+This feature called *single-stepping*, allows running the program "line-by-line", thus giving the programmer an opportunity to analyse what the program does as each line of code executes. This feature is quite useful for identifying excatly where deviations from expected behaviour occur. 
 
-* *breakpoints*: are a feature that allow suspending a running program when it tries to execute a particular line of code. Each such position is called a `breakpoint` (as they break the flow of execution). Program execution is suspended just before the breakpoint is "hit" (i.e the line in question is due to run). This is helpful to quickly reach a problem area and stop short of it. In `gdb` breakpoints are specified using the `break` command (conveniently shortened to `b`).
+We can continue `step`ping thorugh the program till it terminates normally:
 
-* *single-stepping*: is a feature that allows running the program one line at a time. Combined with breakpoints, this is a valuable tool as it allows taking a closer look at the program state after each instruction is processed. There are variations of this feature such as which we be introduced later. In `gdb` *single-stepping* is achieved via the `step` (conveniently shortened to `s`) and `next` (conveniently shortened to `n`) commands.
+```
+(gdb) step
+9	}
+(gdb) step
+0xb7d5f775 in __libc_start_main () from /lib/tls/i686/cmov/libc.so.6
+(gdb) step
+Single stepping until exit from function __libc_start_main, 
+which has no line number information.
 
-Another cool feature of a debugger is that it allows the programmer to inspect various parts of a program as it is running. `gdb` exposes this feature via the various `info` commands. These commands will be dealt with in full in later chapters.
+Program exited normally.
+(gdb) 
+```
 
-#### A Simple Debug Session
+We can also let the program run to completion, just like when it does without a debugger, via the `continue` command:
 
-Now that the minutiae are out of the way, we can get a taste of debugging with `gdb`. Here's a sample debug session:
-  ```
-    test@test-desktop:~$ gdb a.out 
-    GNU gdb 6.8-debian
-    Copyright (C) 2008 Free Software Foundation, Inc.
-    License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
-    This is free software: you are free to change and redistribute it.
-    There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
-    and "show warranty" for details.
-    This GDB was configured as "i486-linux-gnu"...
-    (gdb) l
-    1	#include <iostream>
-    2	// Hello, World! Program
-    3	// File: hello.cpp
-    4	// Compile With: g++ --std=c++11 hello.cpp -o a.out
-    5	int main()
-    6	{
-    7		std::cout<<"Hello, World!"<<std::endl;
-    8		return 0;
-    9	}
-    (gdb) b hello.cpp:7
-    Breakpoint 1 at 0x80486c5: file hello.cpp, line 7.
-    (gdb) r
-    Starting program: /home/test/a.out 
-    
-    Breakpoint 1, main () at hello.cpp:7
-    7		std::cout<<"Hello, World!"<<std::endl;
-    (gdb) s
-    Hello, World!
-    8		return 0;
-    (gdb) s
-    9	}
-    (gdb) s
-    0xb7d5f775 in __libc_start_main () from /lib/tls/i686/cmov/libc.so.6
-    (gdb) s
-    Single stepping until exit from function __libc_start_main, 
-    which has no line number information.
-    
-    Program exited normally.
-    (gdb) q
-    test@test-desktop:~$ 
-  ```
-which can be summarized as follows:
-* First, we start by launching the debugger with `gdb a.out` and get a program listing via `l` (list) command
-* Using the program listing as reference, we set a *breakpoint* at line `7`, just before the words `Hello, World!` are printed to screen
-* We run the program as usual, but the execution is suspended when the breakpoint at line `7` is hit. Subsequently, we instruct the debugger to execute the line of source code via the `s` (single-step) command, producing the output `Hello, World!` and advancing to the next line of source code
-* We then repeat this process, following along the execution of the rest of the source code via the `s` (single-step) command until program execution reaches the end of `main()` and the program terminates. 
-* Following the termination of the program, we exit the debugger using `q` (quit)
+```
+(gdb) start
+Breakpoint 3 at 0x80486c5: file hello.cpp, line 7.
+Starting program: /home/seed/a.out 
+main () at hello.cpp:7
+7		std::cout<<"Hello, World!"<<std::endl;
+(gdb) continue
+Continuing.
+Hello, World!
 
-If so desired, we could run the program multiple times after it has finished running once. The breakpoint set at line 7 will remain in force till we exit the debugger. Also, issuing a `r` (run command) instead of `s` (single-step command) at line 7 will run the progam to completion, as long as there are no more breakpoints set.
+Program exited normally.
+(gdb)
+```
+
+Although not very useful for this particular instance, the `continue` command resumes normal execution until another *breakpoint* is encountered. This feature thus allows the programmer to "jump" over large portions of the source code which are irrelevant to the problem at hand, because it . We'll take a closer look at this feature in the topics to come.
+
+After *debugging* is complete, we can exit the debugger and return to the command-prompt, via the `quit` command, like so:
+   ```
+   Program exited normally.
+   (gdb) quit
+   test@test-desktop:~$
+   ```
 
 [Index](../Index.md)
