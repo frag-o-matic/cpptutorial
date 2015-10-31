@@ -10,7 +10,7 @@
 
 3 [A Closer Look at Hello, World!](contents/3_Closer_Look.md)
 
-4 Abstraction, Blackboxes and Magic
+4 [Abstraction, Blackboxes and Magic](contents/4_Abstraction.md)
 
 #### Basic C++
 
