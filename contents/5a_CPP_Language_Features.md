@@ -36,3 +36,11 @@ An identifier is a name (sequence of characters, numners and the `_`), which are
 
 ##### Statements and Expressions
 A `statement` is an instruction to the compiler. Statements include instructions for branching, looping and executing other statements or functions. An `expression` is a statement that performs a calculation such as an assignment, arithmetic and/or logical operations. Further reading on [statements](http://en.cppreference.com/w/cpp/language/statements) and [expressions](http://en.cppreference.com/w/cpp/language/expressions).
+
+##### Syntax and Semantics
+*Syntax* deals with technical correctness of a piece of code (i.e set of `statements` and `expressions`) while *Semantics* applies to the correctness of intent or meaning of said piece of code. While compiling code, errors may be reported for violation of either of these properties.
+
+* *Syntax Errors* occur when the programmer writes code that isn't valid within the constraints of the language.
+* *Semantic Errors* occur when a valid construct doesn't "make sense".
+
+A good overview of syntatic and semantic errors is presented [here](http://space.wccnet.edu/~pmillis/cps120/cps120_pgm_syntax.pdf).
