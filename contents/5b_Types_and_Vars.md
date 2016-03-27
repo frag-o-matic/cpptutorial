@@ -27,3 +27,70 @@ or
 
 **User-define Types**: User-defined types, or UDTs, are as the name implies, types created by the user (programmer) to make their lives easier. Most non-trivial problems deal with data as a group and it makes sense to group this data into a new type that can be used throughout the program. C++ allows programmers to define datatypes as they see fit. Typically these would be `class`es or `struct`s.
 
+We'll start with the built-in types now and delve into User-defined types as we progress.
+
+#### Fundamental Types
+The fundamental aka built-in types in C++ fall into four categories:
+
+* **Character**: which are single character literals, for example, a letter such as `A` or an ASCII special character such as `\0` (the `NULL` character, which also happens to be the C-style string terminator). This category includes items that are `char` or `unsigned char`. The wide-character type `wchar_t` (more on this later) also fits in here.
+* **Integral**: which are whole numbers of various sizes and could be `signed` (both negative and positive values possible) or `unsigned` (only zero and positive values possible). This category includes `short`, `int`, `long` and `long long` along with their variations. Additionally, sizes, difference etc are also likely to be integrals.
+* **Floating-point**: which are types for storing reals (numbers with a whole and fractional part, such as `3.14`). In terms of types, this translates into `float`, `double` and `long double`. 
+* **Boolean**: which is a simple type with two values: `true` and `false`. 
+
+In addition, the language has two specific types:
+
+* `void`: which denotes "no type"/"no applicable" or "incomplete type information"
+* `nullptr_t`: which represents an invalid pointer
+
+More details, see [types](http://en.cppreference.com/w/cpp/language/type) and [fundamental types](http://en.cppreference.com/w/cpp/language/types) on C++ Reference website.
+
+It is upto the programmer to select the right type for an entity. All types have a typical size and a range of valid values associated with them, although this varies with operating systems and compilers.
+
+
+#### Putting Types to Use
+Types and typesystems exist to help programmers attach meaning to entities they use in code. The simplest entity one can use in code is a **variable**, which is an identifier for some location in the main memory. Variables in C++ must be associated with a type and the compiler checks the code to ensure that all variables are used within constraints applicable to the type they are associated with.
+
+##### Declaration, Definition and Initialization
+When using C++, these terms are used quite frequently. There is a [question](https://stackoverflow.com/questions/23345554/the-differences-between-initialize-define-declare-a-variable) on SO that deals with these terms. In a nutshell, here's what these terms mean:
+
+* **Declaration**: Specify a new entity in your code. This could be a variable, a function or a user defined type
+* **Definition**: Provide definition to a previously declared entity
+* **Initialization**: Generally, this is declaration and definition done in one go, typically for an entity that you've introduced and want to use immediately
+
+Let's take a look at how these terms apply to variables. Declaring a variable is very simple, one need only specify the type and an identifier for the variable, for example:
+
+    int x;
+
+Declares a variable `x` of type `int` and assigns an unspecified value to it, which is bad™. Let's try fixing that:
+
+    int x;
+    x=42;
+
+These two statements declare `x` as an `int` and define (in this case assign) its value to be `42`. Now, `x` will contain the value `42` until someone changes it.
+
+It is possible to combine the two statements into one via:
+
+    int x=0;
+
+The above statement declares and initializes `x` to `0`. This is how code is usually written. Declaring variables of other types is similar:
+
+    char resp = 'N';
+    float pi = 3.1416;
+    bool ready = false;
+
+But, there is one gotcha... one cannot declare variables of type `void`. The use of this type will be clear as we proceed further.
+
+#### auto
+
+The C++11 standard introduced the [`auto`](https://msdn.microsoft.com/en-IN/library/dd293667.aspx) keyword, which basically tells the compiler: "figure out the type for me". Usually variables are declared as so:
+
+    int x = 0;   // the 0 says I'm an int, d' oh!
+
+Which contains some repetitive information: the type of the value `0` used to initialize `x` is known to the compiler and can be used to **deduce** that `x` must be an `int`. When using C++11, one can (and usually will) write the above line of code as:
+
+    auto x = 0;   // that 0 will make x an int
+
+The `auto` form is preferable as it prevents you from having to repeat yourself (the type is apparent from the initializer value) and prevents you from having to type out long typenames such as: `std::map<int, std::vector<float>>::iterator` everytime you need to use them. There are other advantages as well.
+
+##### Note about auto type-deduction
+For most part, `auto` works as one would expect, but the rules of type-deduction when using `auto` are a bit obtuse in some circumstances, and it is recommened to be aware about them. A [chapter](https://www.safaribooksonline.com/library/view/effective-modern-c/9781491908419/ch01.html) in Scott Meyer's "Effective Modern C++" is dedicated to this topic.
