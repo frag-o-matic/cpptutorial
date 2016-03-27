@@ -16,10 +16,11 @@
 
 5 [C++ Language Features](contents/5a_CPP_Language_Features.md)
   * Syntax, Keywords and other Minutiae
-  * Types and Variables
-   - Built-in Types: Integrals, Floating-points, Boolean and `void`
-   - Type-deduction and `auto`
-   - `const` variables
+  * [Types and Variables](contents/5b_Types_and_Vars.md)
+   - Types and Type Systems
+   - Types in C++
+   - `auto` and Type-deduction
+   - `const`, `volatile` and Fixed width Integrals
   * Operators
 	- Arithmetic and Assignment
 	- Logical and Comparison
